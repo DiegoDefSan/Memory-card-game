@@ -21,6 +21,7 @@ class _InputFieldState extends State<InputField> {
       padding: const EdgeInsets.all(8.0),
       child: TextField(
         controller: widget.textController,
+        textCapitalization: TextCapitalization.words,
         decoration: InputDecoration(
           border: const UnderlineInputBorder(),
           hintText: widget.hintText,
