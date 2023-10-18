@@ -4,6 +4,7 @@ class Button extends StatefulWidget {
   final String text;
   final Color backgroundColor;
   final Color textColor;
+  final void Function() onPressed;
 
   const Button({
     Key? key,
@@ -11,6 +12,7 @@ class Button extends StatefulWidget {
     this.backgroundColor =
         const Color.fromARGB(255, 3, 4, 94), // ARGB format: 0xAARRGGBB
     this.textColor = Colors.white,
+    required this.onPressed,
   }) : super(key: key);
 
   @override
@@ -21,7 +23,9 @@ class _ButtonState extends State<Button> {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: () {
+        widget.onPressed();
+      },
       style: ElevatedButton.styleFrom(
         backgroundColor: widget.backgroundColor,
         foregroundColor: widget.textColor,
