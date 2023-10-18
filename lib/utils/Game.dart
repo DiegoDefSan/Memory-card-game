@@ -1,38 +1,36 @@
 export 'Game.dart';
 
+import 'dart:math';
+
 import 'GameCard.dart';
 
 class Game {
   List<GameCard> gameCards = [];
   final int numberOfCards = 20;
   final String imagesPath = "assets/images/";
-  bool withImages;
-  bool withNumbers;
   List<GameCard> flippedCards = [];
   bool isOver = false;
   int tries = 0;
 
-  Game(this.withImages, this.withNumbers);
-
-  void initGame() {
+  void initGame(bool withImages, bool withNumbers) {
     if (withImages && withNumbers) {
+      int n = Random().nextInt(2);
+
       gameCards = List.generate(
           numberOfCards,
           (index) => GameCard(
-              (index / 2 + 1).toInt(),
-              index < 10
-                  ? ((index / 2 + 1) % 10).toInt()
-                  : "${imagesPath}pokemon_${(index / 2 + 1).toInt()}.png"));
+                (n % 2 == 0 && index < 10) || (n % 2 == 1 && index >= 10)
+                    ? ((index / 2 + 1) % 10).toInt()
+                    : "${imagesPath}pokemon_${(index / 2 + 1).toInt()}.png",
+              ));
     } else if (withNumbers) {
       gameCards = List.generate(
-          numberOfCards,
-          (index) => GameCard(
-              (index / 2 + 1).toInt(), ((index / 2 + 1) % 10).toInt()));
+          numberOfCards, (index) => GameCard(((index / 2 + 1) % 10).toInt()));
     } else if (withImages) {
       gameCards = List.generate(
           numberOfCards,
-          (index) => GameCard((index / 2 + 1).toInt(),
-              "${imagesPath}pokemon_${(index / 2 + 1).toInt()}.png"));
+          (index) =>
+              GameCard("${imagesPath}pokemon_${(index / 2 + 1).toInt()}.png"));
     }
 
     gameCards.shuffle();
