@@ -9,10 +9,10 @@ class Button extends StatefulWidget {
   const Button({
     Key? key,
     required this.text,
+    required this.onPressed,
     this.backgroundColor =
         const Color.fromARGB(255, 3, 4, 94), // ARGB format: 0xAARRGGBB
     this.textColor = Colors.white,
-    required this.onPressed,
   }) : super(key: key);
 
   @override
