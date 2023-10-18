@@ -5,6 +5,7 @@ import 'package:jogo_memoria/utils/Game.dart';
 import 'package:jogo_memoria/widgets/InfoContainter.dart';
 import 'package:jogo_memoria/widgets/Navbar.dart';
 
+// ignore: must_be_immutable
 class BoardGamePage extends StatefulWidget {
   bool withImages;
   bool withNumbers;

@@ -6,6 +6,7 @@ import 'package:jogo_memoria/widgets/Navbar.dart';
 import 'package:jogo_memoria/widgets/texts/Header1.dart';
 import 'package:jogo_memoria/widgets/texts/Header2.dart';
 
+// ignore: must_be_immutable
 class EndGamePage extends StatefulWidget {
   int tries;
   int seconds;
