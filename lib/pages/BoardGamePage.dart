@@ -1,11 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:jogo_memoria/pages/EndGamePage.dart';
 import 'package:jogo_memoria/utils/Game.dart';
 import 'package:jogo_memoria/widgets/InfoContainter.dart';
 import 'package:jogo_memoria/widgets/Navbar.dart';
 
 class BoardGamePage extends StatefulWidget {
-  const BoardGamePage({super.key});
+  bool withImages;
+  bool withNumbers;
+  String name;
+
+  BoardGamePage({
+    Key? key,
+    required this.withImages,
+    required this.withNumbers,
+    required this.name,
+  }) : super(
+          key: key,
+        );
 
   @override
   State<BoardGamePage> createState() => _BoardGamePageState();
@@ -13,24 +25,23 @@ class BoardGamePage extends StatefulWidget {
 
 class _BoardGamePageState extends State<BoardGamePage>
     with TickerProviderStateMixin {
-  Game game = Game(true, false);
+  Game game = Game();
   Ticker? _ticker;
   int _elapsedSeconds = 0;
 
   @override
   void initState() {
     super.initState();
-    game.initGame();
+    game.initGame(widget.withImages, widget.withNumbers);
 
     game.setFlipAllCards();
 
-    Future.delayed(const Duration(milliseconds: 6000), () {
+    Future.delayed(const Duration(milliseconds: 5500), () {
       setState(() {
         game.setFlipAllCards();
+        _startTicker();
       });
     });
-
-    _startTicker();
   }
 
   void _startTicker() {
@@ -40,6 +51,26 @@ class _BoardGamePageState extends State<BoardGamePage>
       });
     })
       ..start();
+  }
+
+  void checkEndGame() {
+    if (game.isOver) {
+      _ticker?.stop();
+      Future.delayed(const Duration(milliseconds: 2000), () {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => EndGamePage(
+              tries: game.tries,
+              seconds: _elapsedSeconds,
+              name: widget.name,
+              withImages: widget.withImages,
+              withNumbers: widget.withNumbers,
+            ),
+          ),
+        );
+      });
+    }
   }
 
   @override
@@ -105,8 +136,7 @@ class _BoardGamePageState extends State<BoardGamePage>
                       game.checkGameOver();
 
                       if (game.isOver) {
-                        print("Game Over");
-                        _ticker?.stop();
+                        checkEndGame();
                       }
                     });
                   },
