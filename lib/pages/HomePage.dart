@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jogo_memoria/pages/BoardGamePage.dart';
 import 'package:jogo_memoria/widgets/Button.dart';
 import 'package:jogo_memoria/widgets/CheckboxField.dart';
 import 'package:jogo_memoria/widgets/InputField.dart';
@@ -31,6 +32,11 @@ class _HomePageState extends State<HomePage> {
 
   String warning = "";
 
+  bool checkData() {
+    return !nameController.text.isEmpty &&
+        (cardTypes["imagens"]! || cardTypes["numeros"]!);
+  }
+
   void showWarningMessage() {
     if (nameController.text.isEmpty &&
         !cardTypes["imagens"]! &&
@@ -51,6 +57,19 @@ class _HomePageState extends State<HomePage> {
         warning = warningTypes["none"]!;
       });
     }
+  }
+
+  void startGame() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => BoardGamePage(
+          withImages: cardTypes["imagens"]!,
+          withNumbers: cardTypes["numeros"]!,
+          name: nameController.text,
+        ),
+      ),
+    );
   }
 
   @override
@@ -135,7 +154,9 @@ class _HomePageState extends State<HomePage> {
             margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
             child: Button(
               text: "Jogar",
-              onPressed: showWarningMessage,
+              onPressed: () {
+                checkData() ? startGame() : showWarningMessage();
+              },
             ),
           ),
         ],
