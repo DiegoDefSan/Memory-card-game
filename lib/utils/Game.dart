@@ -1,60 +1,70 @@
-import 'dart:math';
+export 'Game.dart';
 
 import 'GameCard.dart';
 
 class Game {
+  List<GameCard> gameCards = [];
+  final int numberOfCards = 20;
+  final String imagesPath = "assets/images/";
+  bool withImages;
+  bool withNumbers;
+  List<GameCard> flippedCards = [];
   bool isOver = false;
-  int score = 0;
   int tries = 0;
-  String imagesLocation = "assets/images/";
-  final bool withImages;
-  final bool withNumbers;
 
-  List<GameCard> GameCards = [];
+  Game(this.withImages, this.withNumbers);
 
-  Game(this.withImages, this.withNumbers) {
-    initializeGameCards();
-    isOver = false;
-    score = 0;
-    tries = 0;
-  }
-
-  void initializeGameCards() {
+  void initGame() {
     if (withImages && withNumbers) {
-      bool even = 0 + Random().nextInt(2) % 2 == 0;
-
-      if (even) {
-        for (int i = 0; i < 5; i++) {
-          GameCards.add(GameCard(i, 2 * i));
-          GameCards.add(GameCard(i, 2 * i));
-        }
-      } else {
-        for (int i = 0; i < 5; i++) {
-          GameCards.add(GameCard(i, 2 * i + 1));
-          GameCards.add(GameCard(i, 2 * i + 1));
-        }
-      }
-
-      for (int i = 5; i < 10; i++) {
-        GameCards.add(
-            GameCard(i, "${this.imagesLocation}pokemon_${i + 1}.png"));
-        GameCards.add(
-            GameCard(i, "${this.imagesLocation}pokemon_${i + 1}.png"));
-      }
-    } else if (withImages) {
-      for (int i = 0; i < 10; i++) {
-        GameCards.add(
-            GameCard(i, "${this.imagesLocation}pokemon_${i + 1}.png"));
-        GameCards.add(
-            GameCard(i, "${this.imagesLocation}pokemon_${i + 1}.png"));
-      }
+      gameCards = List.generate(
+          numberOfCards,
+          (index) => GameCard(
+              (index / 2 + 1).toInt(),
+              index < 10
+                  ? ((index / 2 + 1) % 10).toInt()
+                  : "${imagesPath}pokemon_${(index / 2 + 1).toInt()}.png"));
     } else if (withNumbers) {
-      for (int i = 0; i < 10; i++) {
-        GameCards.add(GameCard(i, i));
-        GameCards.add(GameCard(i, i));
-      }
+      gameCards = List.generate(
+          numberOfCards,
+          (index) => GameCard(
+              (index / 2 + 1).toInt(), ((index / 2 + 1) % 10).toInt()));
+    } else if (withImages) {
+      gameCards = List.generate(
+          numberOfCards,
+          (index) => GameCard((index / 2 + 1).toInt(),
+              "${imagesPath}pokemon_${(index / 2 + 1).toInt()}.png"));
     }
 
-    GameCards.shuffle();
+    gameCards.shuffle();
+  }
+
+  int flipCard(int index) {
+    flippedCards.add(gameCards[index]);
+
+    if (flippedCards.length < 2) {
+      return 0;
+    }
+
+    if (flippedCards[0].value == flippedCards[1].value) {
+      flippedCards.clear();
+      return 0;
+    }
+
+    flippedCards[0].isFlipped = false;
+    flippedCards[1].isFlipped = false;
+
+    flippedCards = [];
+    return 500;
+  }
+
+  bool checkGameOver() {
+    isOver = gameCards.every((element) => element.isFlipped);
+    return isOver;
+  }
+
+  void setFlipAllCards() {
+    gameCards.forEach((element) {
+      element.isFlipped = !element.isFlipped;
+    });
   }
 }
