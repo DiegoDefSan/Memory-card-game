@@ -13,7 +13,7 @@ class Navbar extends StatelessWidget implements PreferredSizeWidget {
     return SafeArea(
       child: Container(
         height: preferredSize.height,
-        color: const Color.fromARGB(255, 3, 4, 94),
+        color: const Color(0xFFc66b56),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -21,7 +21,7 @@ class Navbar extends StatelessWidget implements PreferredSizeWidget {
               title,
               style: const TextStyle(
                 color: Colors.white,
-                fontSize: 24,
+                fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
             ),

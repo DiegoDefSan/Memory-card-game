@@ -22,6 +22,9 @@ class _InputFieldState extends State<InputField> {
       child: TextField(
         controller: widget.textController,
         textCapitalization: TextCapitalization.words,
+        style: const TextStyle(
+          color: Color(0xff78909c),
+        ),
         decoration: InputDecoration(
           border: const UnderlineInputBorder(),
           hintText: widget.hintText,

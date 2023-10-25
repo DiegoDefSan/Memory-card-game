@@ -31,9 +31,14 @@ class _CheckboxFieldState extends State<CheckboxField> {
               widget.onChecked(isChecked);
             });
           },
-          activeColor: const Color.fromARGB(255, 3, 4, 94),
+          activeColor: const Color(0xFFdc6252),
         ),
-        Text(widget.labelText),
+        Text(
+          widget.labelText,
+          style: const TextStyle(
+            color: Color(0xFF78909c),
+          ),
+        ),
       ],
     );
   }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jogo_memoria/widgets/texts/Header2.dart';
+import 'package:jogo_memoria/widgets/texts/Paragraph.dart';
 
 class InfoContainer extends StatefulWidget {
   final String title;
@@ -19,17 +19,29 @@ class _InfoContainerState extends State<InfoContainer> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 150,
-      padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+      width: 170,
+      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
       decoration: BoxDecoration(
-        color: Color(0xFFd0d8ff),
+        color: const Color(0xFFffffff),
         borderRadius: BorderRadius.circular(8.0),
-      ),
-      child: Column(
-        children: [
-          Header2(text: widget.title, color: Color(0xFF140ef3)),
-          Header2(text: widget.subInfo, color: Color(0xFF140ef3)),
+        border: Border.all(
+          color: const Color(0xFF78909c),
+          width: 1,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.5),
+            spreadRadius: 0.5,
+            blurRadius: 2,
+            offset: const Offset(0, 3),
+          ),
         ],
+      ),
+      child: Center(
+        child: Paragraph(
+          text: "${widget.title}: ${widget.subInfo}",
+          color: const Color(0xFF000000),
+        ),
       ),
     );
   }
