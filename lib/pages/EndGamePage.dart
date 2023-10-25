@@ -39,7 +39,7 @@ class _EndGamePageState extends State<EndGamePage> {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
               decoration: BoxDecoration(
-                color: const Color(0xFF03045e),
+                color: const Color(0xFFf5d6a9),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Column(
@@ -48,7 +48,7 @@ class _EndGamePageState extends State<EndGamePage> {
                     margin: const EdgeInsets.all(10),
                     child: Header1(
                       text: "Parabéns, " + widget.name + "!",
-                      color: const Color(0xFFd0d8ff),
+                      color: const Color(0xFF000000),
                     ),
                   ),
                   Container(
@@ -57,11 +57,11 @@ class _EndGamePageState extends State<EndGamePage> {
                       children: [
                         Header2(
                           text: "Tentos: ${widget.tries}",
-                          color: const Color(0xFFd0d8ff),
+                          color: const Color(0xFF000000),
                         ),
                         Header2(
                           text: "Segundos: ${widget.seconds}",
-                          color: const Color(0xFFd0d8ff),
+                          color: const Color(0xFF000000),
                         ),
                       ],
                     ),
@@ -84,8 +84,8 @@ class _EndGamePageState extends State<EndGamePage> {
                               ),
                             );
                           },
-                          backgroundColor: const Color(0xFF7b87ff),
-                          textColor: const Color(0xFFd0d8ff),
+                          backgroundColor: const Color(0xFFe18544),
+                          textColor: const Color(0xFFffffff),
                         ),
                         Button(
                           text: "Voltar para o início",
@@ -97,8 +97,8 @@ class _EndGamePageState extends State<EndGamePage> {
                               ),
                             );
                           },
-                          backgroundColor: const Color(0xFFd0d8ff),
-                          textColor: const Color(0xFF03045e),
+                          backgroundColor: const Color(0xFFffffff),
+                          textColor: const Color(0xFF000000),
                         ),
                       ],
                     ),

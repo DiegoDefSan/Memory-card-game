@@ -4,6 +4,7 @@ import 'package:jogo_memoria/pages/EndGamePage.dart';
 import 'package:jogo_memoria/utils/Game.dart';
 import 'package:jogo_memoria/widgets/InfoContainter.dart';
 import 'package:jogo_memoria/widgets/Navbar.dart';
+import 'package:jogo_memoria/widgets/texts/Paragraph.dart';
 
 // ignore: must_be_immutable
 class BoardGamePage extends StatefulWidget {
@@ -82,17 +83,35 @@ class _BoardGamePageState extends State<BoardGamePage>
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.center,
+          Column(
             children: [
-              InfoContainer(
-                title: "Tentativas",
-                subInfo: game.tries.toString(),
+              Container(
+                margin: const EdgeInsets.symmetric(vertical: 8),
+                child: Paragraph(text: "Jogador: ${widget.name}"),
               ),
-              InfoContainer(
-                title: "Segundos",
-                subInfo: _elapsedSeconds.toString(),
+              Container(
+                margin: const EdgeInsets.symmetric(vertical: 8),
+                child: Image.asset(
+                  "assets/images/pokeball.png",
+                  width: 90,
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.symmetric(vertical: 8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    InfoContainer(
+                      title: "Tentativas",
+                      subInfo: game.tries.toString(),
+                    ),
+                    InfoContainer(
+                      title: "Segundos",
+                      subInfo: _elapsedSeconds.toString(),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
@@ -143,8 +162,10 @@ class _BoardGamePageState extends State<BoardGamePage>
                   },
                   child: Container(
                     decoration: const BoxDecoration(
-                      color: Color(0xFF7b87ff),
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      color: Color(0xFFedc27d),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
                     ),
                     child: Center(
                       child: game.gameCards[index].isFlipped
